@@ -12,7 +12,7 @@
 		"slot": 1,
 		"sdkVersion": "V5_1_0_1_15",
 		"python": {
-			"main": "src/main2.py"
+			"main": "src/znpid.py"
 		}
 	}
 }

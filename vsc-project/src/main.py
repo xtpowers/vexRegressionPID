@@ -12,13 +12,13 @@ t_left_motor = Motor(Ports.PORT19, False)
 f_right_motor = Motor(Ports.PORT1, False)
 b_right_motor = Motor(Ports.PORT11, False)
 t_right_motor = Motor(Ports.PORT12, True)
-intake = Motor(Ports.PORT18, False)
+intake = Motor(Ports.PORT9, False)
 inertial = Inertial(Ports.PORT2)
-pto = DigitalOut(Triport.g)
-wings = DigitalOut(Triport.h)
+#pto = DigitalOut(Triport.g)
+#wings = DigitalOut(Triport.h)
 # distance between front and back motors
 track_width = 0
-drivetrain = DriveTrain(left_motor, right_motor, 4 * pi, track_width, units=DistanceUnits.MM)
+# drivetrain = DriveTrain(left_motor, right_motor, 4 * pi, track_width, units=DistanceUnits.MM)
 
 
 # inertial = Inertial(Ports.PORT19) #for skills replace the inertial with an actual inertial, we assume no inertial avaliable for match auton
