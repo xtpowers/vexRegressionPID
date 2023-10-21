@@ -132,9 +132,17 @@ def autotune_degrees(degrees):
         print(inertial.heading(DEGREES))
         if(last_err >= cur_err):
             last_err = cur_err
+            """
             kp += 0.05
             kd += 0.05
             ki += 0.05
+
+            bottom converges on the k values beter
+            """
+            kp += 0.05*last_err
+            kd += 0.05*last_err
+            ki += 0.05*last_err
+            print("hes not getting bizzy, he getting rizzy")
         else:
             break
     return [ kp, kd, ki]

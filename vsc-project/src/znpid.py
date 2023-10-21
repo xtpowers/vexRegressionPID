@@ -13,8 +13,8 @@ b_right_motor = Motor(Ports.PORT11, False)
 t_right_motor = Motor(Ports.PORT12, True)
 intake = Motor(Ports.PORT9, False)
 inertial = Inertial(Ports.PORT15)
-pto = DigitalOut(brain.three_wire_port.g)
-wings = DigitalOut(brain.three_wire_port.h)
+pto = DigitalOut(brain.three_wire_port.h)
+wings = DigitalOut(brain.three_wire_port.g)
 
 
 #left_motors = MotorGroup(f_left_motor, b_left_motor, t_left_motor)
@@ -70,13 +70,162 @@ def pre_autonomous():
 
 
 def autonomous():
-    brain.screen.print("auton")
+    #"""
+    wings_extended = True
+    wings.set(wings_extended)
+    wait(0.25,SECONDS)
+    drive = 0 * .12
+    turn = -30 * .12 * .5
+    f_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    f_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    b_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    b_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    wait(0.25,SECONDS)
+    drive = 50 * .12
+    turn = 0 * .12 * .5
+    f_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    f_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    b_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    b_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    wait(0.25, SECONDS)
+    intake.spin(FORWARD, 12, VoltageUnits.VOLT)
+    wait(2, SECONDS)
+    intake.stop()
+    drive = 100 * .12
+    turn = 0 * .12 * .5
+    f_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    f_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    b_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    b_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    wait(0.5, SECONDS)
+    
+    drive = -50 * .12
+    turn = 0 * .12 * .5
+    intake.spin(FORWARD, 12, VoltageUnits.VOLT)
+    f_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    f_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    b_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    b_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    wait(0.5, SECONDS)
+    f_left_motor.stop()
+    b_left_motor.stop()
+    f_right_motor.stop()
+    b_right_motor.stop()    
+    wait(0.5, SECONDS)
+    intake.stop()
+
+    drive = 100 * .12
+    turn = 20 * .12 * .5
+    f_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    f_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    b_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    b_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    wait(0.5, SECONDS)
+    f_right_motor.stop()
+    b_right_motor.stop()
+    wait(0.5,SECONDS)
+    f_left_motor.stop()
+    f_right_motor.stop()
+    wings_extended = False
+    wings.set(wings_extended)
+    wait(0.5, SECONDS)
+    drive = -50 * .12
+    turn = -10 * .12 * .5
+    f_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    f_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    b_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    b_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    wait(2, SECONDS)
+    drive = 50 * .12
+    turn = 0 * .12 * .5
+    f_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    f_right_motor.stop()
+    b_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    b_right_motor.stop()
+    wait(1, SECONDS)
+    #"""
+
 
 
 def user_control():
+    """
+    wings_extended = True
+    wings.set(wings_extended)
+    wait(0.25,SECONDS)
+    drive = 0 * .12
+    turn = -30 * .12 * .5
+    f_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    f_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    b_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    b_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    wait(0.25,SECONDS)
+    drive = 50 * .12
+    turn = 0 * .12 * .5
+    f_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    f_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    b_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    b_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    wait(0.25, SECONDS)
+    intake.spin(FORWARD, 12, VoltageUnits.VOLT)
+    wait(2, SECONDS)
+    intake.stop()
+    drive = 100 * .12
+    turn = 0 * .12 * .5
+    f_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    f_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    b_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    b_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    wait(0.5, SECONDS)
+    
+    drive = -50 * .12
+    turn = 0 * .12 * .5
+    intake.spin(FORWARD, 12, VoltageUnits.VOLT)
+    f_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    f_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    b_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    b_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    wait(0.5, SECONDS)
+    f_left_motor.stop()
+    b_left_motor.stop()
+    f_right_motor.stop()
+    b_right_motor.stop()    
+    wait(0.5, SECONDS)
+    intake.stop()
+
+    drive = 100 * .12
+    turn = 20 * .12 * .5
+    f_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    f_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    b_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    b_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    wait(0.5, SECONDS)
+    f_right_motor.stop()
+    b_right_motor.stop()
+    wait(0.5,SECONDS)
+    f_left_motor.stop()
+    f_right_motor.stop()
+    wings_extended = False
+    wings.set(wings_extended)
+    wait(0.5, SECONDS)
+    drive = -50 * .12
+    turn = -10 * .12 * .5
+    f_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    f_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    b_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    b_right_motor.spin(FORWARD, drive - turn, VoltageUnits.VOLT)
+    wait(2, SECONDS)
+    drive = 50 * .12
+    turn = 0 * .12 * .5
+    f_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    f_right_motor.stop()
+    b_left_motor.spin(FORWARD, drive + turn, VoltageUnits.VOLT)
+    b_right_motor.stop()
+    wait(1, SECONDS)
+    #"""
+
     fly_wheel_pto = False
     pto.set(fly_wheel_pto)
-    wings_extended = False
+    wings_extended = True
     wings.set(wings_extended)
     pto_active = False
     fly_buffer = False
@@ -85,14 +234,14 @@ def user_control():
     while (True):
         drive = controller.axis3.value() * .12
         turn = controller.axis1.value() * .12 * .5
-
+        """
         if (controller.buttonA.pressing() and not pid_on):
             print("pid started")
             pid_on = True
             turnPID(90, 0.5, 0, 0, 1000)
             pid_on = False
             #reg_degree_pid(90, 0.45, 5, 0.6, 0.35, 0.1)
-        
+        """
         if abs(drive) + abs(turn) < .25:
             f_left_motor.stop()
             b_left_motor.stop()
@@ -112,7 +261,7 @@ def user_control():
 
         if controller.buttonX.pressing() and not fly_buffer:
             fly_wheel_pto = not fly_wheel_pto
-            pto.set(fly_wheel_pto)
+            pto.set(1 if fly_wheel_pto else 0)
             fly_buffer = True
             if(not fly_wheel_pto and not wings_extended):
                 pto_active = False
@@ -132,18 +281,16 @@ def user_control():
                 pto_active = True
             """
         elif(not controller.buttonR2.pressing()):
-            wings_extended = False
+            wing_buffer = False
 
-        if(fly_wheel_pto):
+        if(not fly_wheel_pto):
             if controller.buttonR1.pressing():
-                t_left_motor.spin(FORWARD, 12, VoltageUnits.VOLT)
+                t_left_motor.spin(REVERSE, 12, VoltageUnits.VOLT)
+                t_right_motor.spin(REVERSE, 8, VoltageUnits.VOLT)
             else:
                 t_left_motor.stop()
-        if(fly_wheel_pto):
-            if controller.buttonR1.pressing():
-                t_right_motor.spin(FORWARD, 12, VoltageUnits.VOLT)
-            else:
-                t_left_motor.stop()
+                t_right_motor.stop()
+        
 
         if controller.buttonL1.pressing():
             intake.spin(REVERSE, 12, VoltageUnits.VOLT)
